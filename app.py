@@ -133,5 +133,3 @@ if hasattr(st.session_state.run, 'status'):
         if st.session_state.retry_error < 3:
             time.sleep(3)
             st.rerun()
-else:
-    st.info("no status")
