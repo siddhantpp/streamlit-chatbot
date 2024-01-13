@@ -19,7 +19,7 @@ if "run" not in st.session_state:
     st.session_state.run = {"status": None}
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [start_msg]
+    st.session_state.messages = []
 
 if "retry_error" not in st.session_state:
     st.session_state.retry_error = 0
@@ -55,10 +55,13 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
                     message_text = content_part.text.value
                     st.markdown(message_text)
 
-# Chat input and message creation
-with st.chat_message('assistant'):
-    st.write(start_msg)
+# Display the initial placeholder message from the assistant
+if not st.session_state.messages:
+    with st.chat_message('assistant'):
+        st.write(start_msg)
+    st.session_state.messages.append(start_msg)
 
+# Chat input and message creation
 if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
