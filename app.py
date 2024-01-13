@@ -34,36 +34,6 @@ css = """
 """
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-# File uploader for CSV, XLS, XLSX
-# uploaded_file = st.file_uploader("Upload your file", type=["csv", "xls", "xlsx"])
-
-# if uploaded_file is not None:
-#     # Determine the file type
-#     file_type = uploaded_file.type
-
-#     try:
-#         # Read the file into a Pandas DataFrame
-#         if file_type == "text/csv":
-#             df = pd.read_csv(uploaded_file)
-#         elif file_type in ["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
-#             df = pd.read_excel(uploaded_file)
-
-#         # Convert DataFrame to JSON
-#         json_str = df.to_json(orient='records', indent=4)
-#         file_stream = io.BytesIO(json_str.encode())
-
-#         # Upload JSON data to OpenAI and store the file ID
-#         file_response = client.files.create(file=file_stream, purpose='answers')
-#         st.session_state.file_id = file_response.id
-#         st.success("File uploaded successfully to OpenAI!")
-
-#         # Optional: Display and Download JSON
-#         st.text_area("JSON Output", json_str, height=300)
-#         st.download_button(label="Download JSON", data=json_str, file_name="converted.json", mime="application/json")
-    
-#     except Exception as e:
-#         st.error(f"An error occurred: {e}")
-
 # Initialize OpenAI assistant
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -84,8 +54,11 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
                     message_text = content_part.text.value
                     st.markdown(message_text)
 
-# Chat input and message creation with file ID
+# Chat input and message creation
 if prompt := st.chat_input("How can I help you?"):
+    with st.chat_message('assistant'):
+        st.write("Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!")
+
     with st.chat_message('user'):
         st.write(prompt)
 
