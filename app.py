@@ -9,7 +9,7 @@ from openai import OpenAI
 
 # Initialize OpenAI client
 client = OpenAI()
-start_msg = "Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!"
+start_msg = "Hello there, human friends! I'm Cosmo, your furry AI Teaching Fellow for Harvard's fantastic CS 32 Course. Think of me as your digital tail-wagging guide, ready to fetch answers and help you paws your way through any tough spots in CS 32! Just a friendly reminder, though: I can't give out any solutions and I'm still learning to be a top dog in this AI world, so if you sniff out any discrepancies between what I say and the official course website or the wisdom of our human CS 32 Teaching Staff, trust their words over mine. Let's embark on this coding adventure together - with lots of treats and fun along the way! 🐾"
 
 # Initialize session state variables
 if "session_id" not in st.session_state:
