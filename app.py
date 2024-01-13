@@ -90,7 +90,7 @@ if prompt := st.chat_input("How can I help you?"):
         st.write(prompt)
 
     with st.chat_message('assistant'):
-        st.spinner(text="Thinking...", *, cache=False)
+        st.spinner(text="Thinking...")
     message_data = {
         "thread_id": st.session_state.thread.id,
         "role": "user",
