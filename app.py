@@ -11,6 +11,9 @@ from openai import OpenAI
 client = OpenAI()
 start_msg = "Hello there, human friends! I'm Cosmo, your furry AI Teaching Fellow for Harvard's CS 32 Course. Think of me as your digital tail-wagging guide, ready to fetch answers and help you paws your way through any tough spots in CS 32! Just a friendly reminder, though: I can't give out any solutions and I'm still learning to be a top dog in this AI world, so if you sniff out any discrepancies between what I say and the official course website or the wisdom of our human CS 32 Teaching Staff, trust their words over mine. Let's embark on this coding adventure together - with lots of treats and fun along the way! 🐾"
 
+def get_avatar(role):
+    return "cosmo.png" if role == "assistant" else "human"
+
 # Initialize session state variables
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
@@ -50,7 +53,7 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
     )
     for message in reversed(st.session_state.messages.data):
         if message.role in ["user", "assistant"]:
-            with st.chat_message(message.role):
+            with st.chat_message(message.role, avatar=get_avatar(message.role)):
                 for content_part in message.content:
                     message_text = content_part.text.value
                     st.markdown(message_text)
