@@ -89,6 +89,8 @@ if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
 
+    with st.chat_message('assistant'):
+        st.write("Thinking ......")
     message_data = {
         "thread_id": st.session_state.thread.id,
         "role": "user",
@@ -108,8 +110,6 @@ if prompt := st.chat_input("How can I help you?"):
 # Handle run status
 if hasattr(st.session_state.run, 'status'):
     if st.session_state.run.status == "running":
-        with st.chat_message('assistant'):
-            st.write("Thinking ......")
         if st.session_state.retry_error < 3:
             time.sleep(1)
             st.rerun()
