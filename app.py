@@ -96,7 +96,7 @@ if prompt := st.chat_input("How can I help you?"):
     }
 
     # Include file ID in the request
-    message_data["file_ids"] = [st.secrets["COURSE_INFO_FILE]"]
+    message_data["file_ids"] = [st.secrets["COURSE_INFO_FILE"]]
 
     st.session_state.messages = client.beta.threads.messages.create(**message_data)
 
