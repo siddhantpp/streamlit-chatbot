@@ -109,8 +109,7 @@ if hasattr(st.session_state.run, 'status'):
     if st.session_state.run.status == "queued":
         with st.chat_message('assistant'):
             with st.spinner(text="Thinking..."):
-                time.sleep(1)
-                st.rerun()
+                pass
              
     elif st.session_state.run.status == "running":
         if st.session_state.retry_error < 3:
