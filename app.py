@@ -55,10 +55,10 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
                     st.markdown(message_text)
 
 # Chat input and message creation
+with st.chat_message('assistant'):
+    st.write("Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!")
+    
 if prompt := st.chat_input("How can I help you?"):
-    with st.chat_message('assistant'):
-        st.write("Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!")
-
     with st.chat_message('user'):
         st.write(prompt)
 
