@@ -9,6 +9,7 @@ from openai import OpenAI
 
 # Initialize OpenAI client
 client = OpenAI()
+start_msg = "Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!"
 
 # Initialize session state variables
 if "session_id" not in st.session_state:
@@ -18,7 +19,7 @@ if "run" not in st.session_state:
     st.session_state.run = {"status": None}
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [start_msg]
 
 if "retry_error" not in st.session_state:
     st.session_state.retry_error = 0
@@ -56,8 +57,8 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
 
 # Chat input and message creation
 with st.chat_message('assistant'):
-    st.write("Hello! I'm Cosmo the dog, an AI member the CS 32 Teaching Staff. I'm here to point you in the right direction on your learning journey with CS 32!")
-    
+    st.write(start_msg)
+
 if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
