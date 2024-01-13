@@ -26,14 +26,6 @@ if "messages" not in st.session_state:
 if "retry_error" not in st.session_state:
     st.session_state.retry_error = 0
 
-# Add custom CSS to hide the GitHub icon
-hide_github_icon = """
-#GithubIcon {
-  visibility: hidden;
-}
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
-
 # Set up the page
 st.set_page_config(page_title="Enter title here")
 st.sidebar.title("Title")
@@ -42,35 +34,43 @@ st.sidebar.markdown("Your name", unsafe_allow_html=True)
 st.sidebar.markdown("Assistant GPT")
 st.sidebar.divider()
 
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 # File uploader for CSV, XLS, XLSX
-uploaded_file = st.file_uploader("Upload your file", type=["csv", "xls", "xlsx"])
+# uploaded_file = st.file_uploader("Upload your file", type=["csv", "xls", "xlsx"])
 
-if uploaded_file is not None:
-    # Determine the file type
-    file_type = uploaded_file.type
+# if uploaded_file is not None:
+#     # Determine the file type
+#     file_type = uploaded_file.type
 
-    try:
-        # Read the file into a Pandas DataFrame
-        if file_type == "text/csv":
-            df = pd.read_csv(uploaded_file)
-        elif file_type in ["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
-            df = pd.read_excel(uploaded_file)
+#     try:
+#         # Read the file into a Pandas DataFrame
+#         if file_type == "text/csv":
+#             df = pd.read_csv(uploaded_file)
+#         elif file_type in ["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]:
+#             df = pd.read_excel(uploaded_file)
 
-        # Convert DataFrame to JSON
-        json_str = df.to_json(orient='records', indent=4)
-        file_stream = io.BytesIO(json_str.encode())
+#         # Convert DataFrame to JSON
+#         json_str = df.to_json(orient='records', indent=4)
+#         file_stream = io.BytesIO(json_str.encode())
 
-        # Upload JSON data to OpenAI and store the file ID
-        file_response = client.files.create(file=file_stream, purpose='answers')
-        st.session_state.file_id = file_response.id
-        st.success("File uploaded successfully to OpenAI!")
+#         # Upload JSON data to OpenAI and store the file ID
+#         file_response = client.files.create(file=file_stream, purpose='answers')
+#         st.session_state.file_id = file_response.id
+#         st.success("File uploaded successfully to OpenAI!")
 
-        # Optional: Display and Download JSON
-        st.text_area("JSON Output", json_str, height=300)
-        st.download_button(label="Download JSON", data=json_str, file_name="converted.json", mime="application/json")
+#         # Optional: Display and Download JSON
+#         st.text_area("JSON Output", json_str, height=300)
+#         st.download_button(label="Download JSON", data=json_str, file_name="converted.json", mime="application/json")
     
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+#     except Exception as e:
+#         st.error(f"An error occurred: {e}")
 
 # Initialize OpenAI assistant
 if "assistant" not in st.session_state:
