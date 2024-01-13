@@ -10,9 +10,6 @@ from openai import OpenAI
 # Initialize OpenAI client
 client = OpenAI()
 
-# Your chosen model
-MODEL = "gpt-4-1106-preview"
-
 # Initialize session state variables
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
@@ -27,12 +24,7 @@ if "retry_error" not in st.session_state:
     st.session_state.retry_error = 0
 
 # Set up the page
-st.set_page_config(page_title="Enter title here")
-st.sidebar.title("Title")
-st.sidebar.divider()
-st.sidebar.markdown("Your name", unsafe_allow_html=True)
-st.sidebar.markdown("Assistant GPT")
-st.sidebar.divider()
+st.set_page_config(page_title="Cosmo - CS32 TF")
 
 # Add custom CSS to hide the GitHub icon
 css = """
@@ -103,9 +95,8 @@ if prompt := st.chat_input("How can I help you?"):
         "content": prompt
     }
 
-    # Include file ID in the request if available
-    if "file_id" in st.session_state:
-        message_data["file_ids"] = [st.session_state.file_id]
+    # Include file ID in the request
+    message_data["file_ids"] = [st.secrets["COURSE_INFO_FILE]"]
 
     st.session_state.messages = client.beta.threads.messages.create(**message_data)
 
