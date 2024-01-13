@@ -104,7 +104,7 @@ if prompt := st.chat_input("How can I help you?"):
         assistant_id=st.session_state.assistant.id,
     )
 
-    if st.session_state.run.status == "running" or st.session_state.run.status == "queued":
+    if st.session_state.run.status == "running":
         with st.chat_message('assistant'):
             with st.spinner(text="Thinking..."):
                 time.sleep(1)
