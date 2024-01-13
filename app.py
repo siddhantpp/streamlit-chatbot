@@ -57,7 +57,7 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
 
 # Display the initial placeholder message from the assistant
 if not st.session_state.messages:
-    with st.chat_message('assistant'):
+    with st.chat_message('assistant', avatar="cosmo.png"):
         st.write(start_msg)
     st.session_state.messages.append(start_msg)
 
@@ -66,7 +66,7 @@ if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
 
-    with st.chat_message('assistant'):
+    with st.chat_message('assistant', avatar="cosmo.png"):
         st.write("Thinking ......")
 
     message_data = {
@@ -91,7 +91,7 @@ if hasattr(st.session_state.run, 'status'):
 
     elif st.session_state.run.status == "failed":
         st.session_state.retry_error += 1
-        with st.chat_message('assistant'):
+        with st.chat_message('assistant', avatar="cosmo.png"):
             if st.session_state.retry_error < 3:
                 st.write("Run failed, retrying ......")
                 time.sleep(3)
