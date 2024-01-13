@@ -36,7 +36,7 @@ st.sidebar.divider()
 
 # Add custom CSS to hide the GitHub icon
 css = """
-#MainMenu {
+#MainMenu, #stActionButton {
   visibility: hidden;
 }
 """
