@@ -35,12 +35,12 @@ st.sidebar.markdown("Assistant GPT")
 st.sidebar.divider()
 
 # Add custom CSS to hide the GitHub icon
-hide_github_icon = """
-#GithubIcon {
+css = """
+#MainMenu {
   visibility: hidden;
 }
 """
-st.markdown(hide_github_icon, unsafe_allow_html=True)
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 # File uploader for CSV, XLS, XLSX
 # uploaded_file = st.file_uploader("Upload your file", type=["csv", "xls", "xlsx"])
