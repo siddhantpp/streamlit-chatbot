@@ -89,28 +89,27 @@ if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
 
-    with st.spinner(text="Thinking ......"):
-        message_data = {
-            "thread_id": st.session_state.thread.id,
-            "role": "user",
-            "content": prompt
-        }
-    
-        st.session_state.messages = client.beta.threads.messages.create(**message_data)
-    
-        st.session_state.run = client.beta.threads.runs.create(
-            thread_id=st.session_state.thread.id,
-            assistant_id=st.session_state.assistant.id,
-        )
-        if st.session_state.retry_error < 3:
-            time.sleep(1)
-            st.rerun()
+    with st.chat_message('assistant'):
+        with st.spinner(text="Thinking ......"):
+            message_data = {
+                "thread_id": st.session_state.thread.id,
+                "role": "user",
+                "content": prompt
+            }
+        
+            st.session_state.messages = client.beta.threads.messages.create(**message_data)
+        
+            st.session_state.run = client.beta.threads.runs.create(
+                thread_id=st.session_state.thread.id,
+                assistant_id=st.session_state.assistant.id,
+            )
+            if st.session_state.retry_error < 3:
+                time.sleep(1)
+                st.rerun()
 
 # Handle run status
 if hasattr(st.session_state.run, 'status'):
     if st.session_state.run.status == "running":
-        with st.chat_message('assistant'):
-            st.write("Thinking ......")
         if st.session_state.retry_error < 3:
             time.sleep(1)
             st.rerun()
